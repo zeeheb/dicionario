@@ -39,12 +39,13 @@
     backdrop-filter: blur(150px);
     display: flex;
     flex-wrap: wrap;
+    min-width: 550px;
 }
 
 
 .shadow {
     background-color: black;
-    background: linear-gradient(to bottom, #DDDEFF 50%, white 50%);
+    background: linear-gradient(to bottom, #DDDEFF 50%, #E5E5E5 50%);
     /*position: fixed;*/
     width: 100%;
     display: flex;
@@ -52,11 +53,13 @@
 
 .qry {
     right: 0;
+    min-width: 450px;
     min-height: 150px;
     max-height: 200px;
     margin-top: 10px;
     margin-left: 40px;
     margin-right: 40px;
+    margin-bottom: 10px;
     background-color: #696df6;
     /*z-index: 10;*/
     flex: 1;
@@ -71,7 +74,6 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-
 }
 
 .alfabetica {
@@ -100,11 +102,102 @@
 }
 
 .qry input {
+    font-size: 30px;
+    font-family: 'Alata', sans-serif;
     height: 57px;
     border-radius: 12px;
     border-style: solid;
 }
 
+.qry ::placeholder {
+    font-family: 'Alata', sans-serif;
+    font-size: 13px;
+}
+
 .searchicon {
     color: #FFFFFF;
+}
+
+body {
+    background-color: #E5E5E5;
+}
+
+.infocontainer {
+    display: flex;
+    flex-wrap: wrap;
+    height: 200px;
+}
+
+.primeiraColuna span {
+    font-family: 'Alata', sans-serif;
+    font-size: 26px;
+    line-height: 20px;
+    color: #696df6;
+    margin-left: 4px;
+    margin-top: 15px;
+}
+
+.segundaColuna span {
+    font-family: 'Alata', sans-serif;
+    font-size: 26px;
+    line-height: 20px;
+    color: #696df6;
+    margin-left: 4px;
+    margin-top: 15px;
+}
+
+.terceiraColuna span {
+    font-family: 'Alata', sans-serif;
+    font-size: 26px;
+    line-height: 20px;
+    color: #696df6;
+    margin-left: 4px;
+    margin-top: 15px;
+}
+
+.primeiraColuna {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    flex-wrap: wrap;
+    min-width: 180px;
+    max-width: 520px;
+    height: 150px;
+    width: 100%;
+    margin-left: 40px;
+    margin-top: 26px;
+    border-radius: 12px;
+}
+
+.segundaColuna {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    min-width: 420px;
+    max-width: 920px;
+    height: 400px;
+    margin-top: 26px;
+    margin-left: 40px;
+    border-radius: 12px;
+
+}
+.terceiraColuna {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    min-width: 180px;
+    max-width: 520px;
+    height: 150px;
+    margin-left: 40px;
+    margin-top: 26px;
+    margin-right: 40px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+
+}
+
+.line {
+    width: 100%;
 }
