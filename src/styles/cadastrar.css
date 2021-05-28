@@ -1,0 +1,33 @@
+.titleCadastro {
+    font-size: 53px;
+    font-family: 'Alata', sans-serif;
+    color: #FFFFFF;
+    line-height: 110px;
+}
+
+.cadastroqry {
+    min-width: 450px;
+    min-height: 150px;
+    max-height: 200px;
+    margin-top: 10px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 10px;
+    background-color: #696df6;
+    text-align: center;
+    /*z-index: 10;*/
+    flex: 1;
+    align-items: center;
+    border-radius: 12px;
+}
+
+.form {
+    margin-left: 50px;
+    margin-right: 50px;
+
+    min-width: 420px;
+    max-width: 1800px;
+    min-height: 750px;
+    max-height: 750px;
+    background-color: #DDDEFF;
+}

@@ -2,30 +2,39 @@ import React, {Component} from "react";
 import '../../styles/home.css'
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
+import { Link, useHistory } from 'react-router-dom';
 
-export class Home extends Component {
-    render() {
+
+function Home(props) {
+    const history = useHistory();
+    const handleClick = () => {
+        history.push('/cadastrar');
+    }
+
+
         return (
             <div className="superContainer">
                 <div className="navigation">
                     <span className="titleHome">Dicionário Colaborativo de Libras</span>
-                    <button className="cadastrarBtn">Cadastre uma palavra <AddIcon/></button>
+                    <button onClick={handleClick} className="cadastrarBtn">
+                            Cadastre uma palavra <AddIcon/>
+                    </button>
                 </div>
 
                 <div className="shadow">
                 <div className="qry">
                     <div className="palavra">
-                        <span>Por Palavra</span>
+                        <span className="qryspan">Por Palavra</span>
                         <input type="text" placeholder="        por palavra..."/>
                         <SearchIcon className="searchicon"/>
                     </div>
                     <div className="alfabetica">
-                        <span>Por ordem alfabética</span>
+                        <span className="qryspan">Por ordem alfabética</span>
                         <input type="text" placeholder="      por ordem alfabética..."/>
                         <SearchIcon className="searchicon"/>
                     </div>
                     <div className="mao">
-                        <span>Por configuração de mão</span>
+                        <span className="qryspan">Por configuração de mão</span>
                         <input type="text" placeholder=" por configuração de mão..."/>
                         <SearchIcon className="searchicon"/>
                     </div>
@@ -50,7 +59,7 @@ export class Home extends Component {
                 </div>
             </div>
         );
-    }
+
 }
 
 export default Home;
