@@ -122,6 +122,10 @@
     color: #FFFFFF;
 }
 
+.searchicon:hover {
+    cursor: pointer;
+}
+
 body {
     background-color: #E5E5E5;
 }
@@ -132,7 +136,7 @@ body {
     height: 200px;
 }
 
-.primeiraColuna span {
+.colTitle {
     font-family: 'Alata', sans-serif;
     font-size: 26px;
     line-height: 20px;
@@ -141,23 +145,6 @@ body {
     margin-top: 15px;
 }
 
-.segundaColuna span {
-    font-family: 'Alata', sans-serif;
-    font-size: 26px;
-    line-height: 20px;
-    color: #696df6;
-    margin-left: 4px;
-    margin-top: 15px;
-}
-
-.terceiraColuna span {
-    font-family: 'Alata', sans-serif;
-    font-size: 26px;
-    line-height: 20px;
-    color: #696df6;
-    margin-left: 4px;
-    margin-top: 15px;
-}
 
 .primeiraColuna {
     flex: 2;
@@ -204,4 +191,14 @@ body {
 
 .line {
     width: 100%;
+}
+
+.colResult {
+    font-size: 45px;
+    font-family: 'Alata', sans-serif;
+    color: black;
+}
+
+.divResult {
+    text-align: center;
 }

@@ -1,4 +1,5 @@
 import React, {Component, useState} from "react";
+import Axios from 'axios';
 import '../../styles/cadastrar.css'
 import { useHistory } from 'react-router-dom'
 
@@ -12,6 +13,15 @@ function Cadastrar(props) {
         history.push('/');
     }
 
+    const addRegistro = () => {
+        console.log(palavra + ' ' + regiao);
+        Axios.post('http://127.0.0.1:3001/cadastrar', {
+            palavra: palavra,
+            regiao: regiao
+        }).then((response) => {
+            console.log(response);
+        })
+    }
 
     return (
 
@@ -40,7 +50,7 @@ function Cadastrar(props) {
             </div>
 
             <div>
-                <button className="cadastrarBtn2">Submeter</button>
+                <button onClick={addRegistro} className="cadastrarBtn2">Submeter</button>
             </div>
         </div>
         </div>

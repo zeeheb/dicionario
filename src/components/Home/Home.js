@@ -1,16 +1,31 @@
-import React, {Component} from "react";
+import React, {Component, useState} from "react";
 import '../../styles/home.css'
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
 import { Link, useHistory } from 'react-router-dom';
+import Axios from 'axios';
 
 
 function Home(props) {
+    const [inputPalavra, setInputPalavra] = useState('')
+    const [nome, setNome] = useState('');
+    const [regiao, setRegiao] = useState('');
+    const [sinal, setSinal] = useState('');
+
+
+
     const history = useHistory();
     const handleClick = () => {
         history.push('/cadastrar');
     }
 
+    const submitPalavra = () => {
+        Axios.get(`http://localhost:3001/palavra/${inputPalavra}`)
+            .then(response => {
+                setNome(response.data[0].nome);
+                setRegiao(response.data[0].regiao);
+            })
+    }
 
         return (
             <div className="superContainer">
@@ -25,8 +40,10 @@ function Home(props) {
                 <div className="qry">
                     <div className="palavra">
                         <span className="qryspan">Por Palavra</span>
-                        <input type="text" placeholder="        por palavra..."/>
-                        <SearchIcon className="searchicon"/>
+                        <input onChange={(e) => {
+                            setInputPalavra(e.target.value);
+                        }} type="text" placeholder="        por palavra..."/>
+                        <SearchIcon onClick={submitPalavra} className="searchicon"/>
                     </div>
                     <div className="alfabetica">
                         <span className="qryspan">Por ordem alfabética</span>
@@ -43,18 +60,27 @@ function Home(props) {
 
                 <div className="infocontainer">
                     <div className="primeiraColuna">
-                        <span>Palavra</span>
+                        <span className="colTitle">Palavra</span>
                         <hr className="line"/>
+                        <div className="divResult">
+                            <span className="colResult">{nome}</span>
+                        </div>
                     </div>
 
                     <div className="segundaColuna">
-                        <span>Sinal</span>
+                        <span className="colTitle">Sinal</span>
                         <hr className="line"/>
+                        <div className="divResult">
+                            <span className="colResult">{sinal}</span>
+                        </div>
                     </div>
 
                     <div className="terceiraColuna">
-                        <span>Região</span>
+                        <span className="colTitle">Região</span>
                         <hr className="line"/>
+                        <div className="divResult">
+                            <span className="colResult">{regiao}</span>
+                        </div>
                     </div>
                 </div>
             </div>
