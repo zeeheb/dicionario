@@ -23,6 +23,10 @@
     color: #696df6;
 }
 
+.cadastrarBtn:hover {
+    cursor: pointer;
+}
+
 .superContainer {
     display: flex;
     flex-direction: column;
