@@ -143,6 +143,9 @@ function Cadastrar(props) {
                 <DialogTitle id="simple-dialog-title">
                     Teste
                 </DialogTitle>
+                <div>
+                    corpo
+                </div>
             </Dialog>
 
 
