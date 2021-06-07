@@ -28,7 +28,7 @@
     min-width: 420px;
     max-width: 1800px;
     min-height: 750px;
-    max-height: 750px;
+    max-height: 1150px;
     background-color: #DDDEFF;
     display: flex;
     flex-direction: column;
@@ -36,7 +36,7 @@
 }
 
 .input {
-    padding: 30px;
+    padding: 15px;
     min-width: 400px;
     max-width: 800px;
 }
@@ -47,9 +47,23 @@
     height: 57px;
     font-size: 30px;
     font-family: 'Alata', sans-serif;
+    outline: none;
+    border: none;
+
 }
 
-.input label {
+.input select {
+    border-radius: 12px;
+    width: 400px;
+    height: 57px;
+    font-size: 30px;
+    font-family: 'Alata', sans-serif;
+    outline: none;
+    border: none;
+}
+
+.form label {
+    margin-top: 20px;
     margin-bottom: 5px;
     font-size: 30px;
     font-family: 'Alata', sans-serif;
@@ -71,5 +85,32 @@
 }
 
 .cadastrarBtn2:hover {
+    cursor: pointer;
+}
+
+.box-input {
+    display: flex;
+    border-radius: 12px;
+    width: 400px;
+    height: 57px;
+    font-size: 30px;
+    font-family: 'Alata', sans-serif;
+    outline: none;
+    border: none;
+    background-color: #FFFFFF;
+    text-align: right;
+    align-items: center;
+}
+
+.box-icon {
+    flex: 1;
+}
+
+.box-choice {
+    text-align: left;
+    flex: 10;
+}
+
+.box-icon:hover {
     cursor: pointer;
 }
