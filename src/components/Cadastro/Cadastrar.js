@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/Add';
+import ModalConfigMaos from "./ModalConfigMaos";
 
 
 
@@ -108,9 +109,6 @@ function Cadastrar(props) {
             </div>
             <label htmlFor="regiao">Configuração de Mão</label>
             <div className="input">
-                {/*<input readOnly={true} name="regiao" type="text" onChange={(event) => {*/}
-                {/*    setRegiao(event.target.value);*/}
-                {/*}}/>*/}
                 <div className="box-input">
                     <span className="box-choice">Teste</span>
                     <span className="box-icon" onClick={openModal}>
@@ -141,11 +139,9 @@ function Cadastrar(props) {
 
             <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={show}>
                 <DialogTitle id="simple-dialog-title">
-                    Teste
+                    <b style={{fontSize: '30px'}}>Escolha uma Configuração de Mão</b>
                 </DialogTitle>
-                <div>
-                    corpo
-                </div>
+                <ModalConfigMaos/>
             </Dialog>
 
 
