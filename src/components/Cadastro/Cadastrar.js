@@ -106,14 +106,14 @@ function Cadastrar(props) {
                     </select>
                 </div>
 
-                <label htmlFor="regiao">Ponte de Articulação</label>
+                <label htmlFor="articulacao">Ponte de Articulação</label>
                 <div className="input">
-                    <input name="regiao" type="text" onChange={(event) => {
+                    <input name="articulacao" type="text" onChange={(event) => {
                         setRegiao(event.target.value);
                     }}/>
                 </div>
 
-                <label htmlFor="regiao">Configuração de Mão</label>
+                <label htmlFor="config">Configuração de Mão</label>
                 <div className="input">
                     <div className="box-input-config">
                         <span className="box-choice" onClick={openModal}>
