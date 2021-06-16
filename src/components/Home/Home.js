@@ -2,8 +2,13 @@ import React, {Component, useState} from "react";
 import '../../styles/home.css'
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
+import MenuIcon from '@material-ui/icons/Menu';
 import { Link, useHistory } from 'react-router-dom';
 import Axios from 'axios';
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import {DialogContent} from "@material-ui/core";
+import ModalMenu from '../Home/ModalMenu';
 
 
 function Home(props) {
@@ -11,6 +16,7 @@ function Home(props) {
     const [nome, setNome] = useState('');
     const [regiao, setRegiao] = useState('');
     const [sinal, setSinal] = useState('');
+    const [show, setShow] = useState(false);
 
 
 
@@ -27,9 +33,32 @@ function Home(props) {
             })
     }
 
+    const openModal = () => {
+        setShow(true);
+    }
+
+    const handleClose = () => {
+        setShow(false);
+    }
+
         return (
             <div className="superContainer">
                 <div className="navigation">
+
+                    <Dialog transitionDuration={{enter: 300, exit: 500}} maxWidth="xs" onClose={handleClose}
+                            aria-labelledby="simple-dialog-title" open={show}>
+                        <DialogTitle id="simple-dialog-title">
+                            <div className="box-dialog" style={{textAlign: 'center'}}>
+                                <b style={{fontSize: '35px', color: '#696df6'}}>Menu</b>
+                                <hr/>
+                            </div>
+                        </DialogTitle>
+                        <DialogContent>
+                           <ModalMenu></ModalMenu>
+                        </DialogContent>
+                    </Dialog>
+
+                    <span><MenuIcon className="menuBtn" onClick={openModal}/></span>
                     <span className="titleHome">Dicionário Colaborativo de Libras</span>
                     <button onClick={handleClick} className="cadastrarBtn">
                             Cadastre uma palavra <AddIcon/>

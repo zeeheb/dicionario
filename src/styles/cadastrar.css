@@ -85,6 +85,7 @@
 
 .cadastrarBtn2:hover {
     cursor: pointer;
+    background-color: green;
 }
 
 .box-input {
@@ -128,4 +129,10 @@
 
 .box-icon:hover {
     cursor: pointer;
+}
+
+.red-star { color: red;}
+
+.box-dialog {
+    font-family: 'Alata', sans-serif;
 }

@@ -17,6 +17,7 @@ function ModalConfigMaos(props) {
                             <img src={config.url} alt={config.value} onClick={(e) => props.onClickConfig(e.target.alt)}/>
                         </div>
 
+
                 ))
             }
         </div>

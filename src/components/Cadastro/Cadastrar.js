@@ -28,12 +28,13 @@ function Cadastrar(props) {
     }
 
     const addRegistro = () => {
-        console.log(palavra + ' ' + regiao);
-        if (palavra == '' || regiao == '') {
+        console.log('palavra: ' +palavra, 'regiao: ' +regiao, 'config: ' +configMao, 'artic:'+pontoArtic);
+
+        if (palavra == '' || regiao == '' || configMao == '' || pontoArtic == '') {
             toast.error("Não deixe campos vazios!!");
             return;
         }
-        Axios.post('http://127.0.0.1:3001/cadastrar', {
+        Axios.post('http://127.0.0.1:3001/register/cadastrar', {
             palavra: palavra,
             regiao: regiao
         }).then((response) => {
@@ -67,15 +68,18 @@ function Cadastrar(props) {
                 </div>
             </div>
             <div className="form">
-                <label htmlFor="palavra">Palavra</label>
+                <label htmlFor="palavra">Palavra <span className="red-star">*</span></label>
                 <div className="input">
                     <input name="palavra" type="text" onChange={(event) => {
                         setPalavra(event.target.value);
                     }}/>
                 </div>
-                <label htmlFor="regiao">Região de Uso</label>
+                <label htmlFor="regiao" >Região de Uso <span className="red-star">*</span></label>
                 <div className="input">
-                    <select name="estados-brasil">
+                    <select name="estados-brasil" onChange={(event) => {
+                        setRegiao(event.target.value);
+                    }}>
+                        <option disabled selected value></option>
                         <option value="AC">Acre</option>
                         <option value="AL">Alagoas</option>
                         <option value="AP">Amapá</option>
@@ -106,14 +110,20 @@ function Cadastrar(props) {
                     </select>
                 </div>
 
-                <label htmlFor="articulacao">Ponte de Articulação</label>
+                <label htmlFor="articulacao">Ponte de Articulação <span className="red-star">*</span></label>
                 <div className="input">
-                    <input name="articulacao" type="text" onChange={(event) => {
-                        setRegiao(event.target.value);
-                    }}/>
+                    <select name="articulacao" type="text" onChange={(event) => {
+                        setPontoArtic(event.target.value);
+                    }}>
+                        <option disabled selected value></option>
+                        <option value="1">Cabeça</option>
+                        <option value="2">Tronco</option>
+                        <option value="3">Mãos</option>
+                        <option value="4">Espaço Neutro</option>
+                    </select>
                 </div>
 
-                <label htmlFor="config">Configuração de Mão</label>
+                <label htmlFor="config">Configuração de Mão <span className="red-star">*</span></label>
                 <div className="input">
                     <div className="box-input-config">
                         <span className="box-choice" onClick={openModal}>
@@ -125,17 +135,20 @@ function Cadastrar(props) {
                     </div>
                 </div>
 
-                <label htmlFor="regiao">Vídeo</label>
+                <label htmlFor="regiao">Imagem/Vídeo</label>
                 <div className="input">
                     <input name="regiao" type="text" onChange={(event) => {
                         setRegiao(event.target.value);
                     }}/>
                 </div>
 
-                <Dialog transitionDuration={{enter: 500, exit: 500}} maxWidth="md" onClose={handleClose}
+                <Dialog transitionDuration={{enter: 300, exit: 500}} maxWidth="md" onClose={handleClose}
                         aria-labelledby="simple-dialog-title" open={show}>
                     <DialogTitle id="simple-dialog-title">
-                        <b style={{fontSize: '30px'}}>Escolha uma Configuração de Mão</b>
+                        <div className="box-dialog" style={{textAlign: 'center'}}>
+                            <b style={{fontSize: '45px', color: '#696df6'}}>Escolha uma Configuração de Mão</b>
+                            <hr/>
+                        </div>
                     </DialogTitle>
                     <DialogContent>
                         <ModalConfigMaos onClickConfig={value => {
@@ -146,7 +159,7 @@ function Cadastrar(props) {
                 </Dialog>
 
                 <div>
-                    <button onClick={openModal} className="cadastrarBtn2">Submeter</button>
+                    <button onClick={addRegistro} className="cadastrarBtn2">Submeter</button>
                 </div>
                 <ToastContainer
                     position="bottom-center"
