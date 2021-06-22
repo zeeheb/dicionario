@@ -1,10 +1,10 @@
-.conteiner {
+.zzconteiner {
     gap: 40px;
     display: flex;
     flex-wrap: wrap;
 }
 
-.config-item {
+.zzconfig-item {
     flex: 4;
     height:  165px;
     border: solid 2px #FFFFFF;
