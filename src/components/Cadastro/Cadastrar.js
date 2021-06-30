@@ -145,7 +145,16 @@ function Cadastrar(props) {
                 </div>
 
                 <label htmlFor="articulacao">Ponte de Articulação <span className="red-star">*</span></label>
-                <div className="input">
+                <h3>Quantidade</h3>
+                <select onChange={(e) => {
+                    setQtdPt(e.target.value);
+                }}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <div className="input-articulacao">
                     <select name="articulacao" type="text" onChange={(event) => {
                         setPontoArtic1(event.target.value);
                     }}>
@@ -155,6 +164,43 @@ function Cadastrar(props) {
                         <option value="3">Mãos</option>
                         <option value="4">Espaço Neutro</option>
                     </select>
+                    { qtdPt >= "2" &&
+                        <select name="articulacao" type="text" onChange={(event) => {
+                            setPontoArtic2(event.target.value);
+                        }}>
+                            <option disabled selected value></option>
+                            <option value="1">Cabeça</option>
+                            <option value="2">Tronco</option>
+                            <option value="3">Mãos</option>
+                            <option value="4">Espaço Neutro</option>
+                        </select>
+                    }
+                    {
+                        qtdPt >= "3" &&
+
+                        <select name="articulacao" type="text" onChange={(event) => {
+                            setPontoArtic3(event.target.value);
+                        }}>
+                            <option disabled selected value></option>
+                            <option value="1">Cabeça</option>
+                            <option value="2">Tronco</option>
+                            <option value="3">Mãos</option>
+                            <option value="4">Espaço Neutro</option>
+                        </select>
+                    }
+                    {
+                        qtdPt === "4" &&
+
+                        <select name="articulacao" type="text" onChange={(event) => {
+                            setPontoArtic4(event.target.value);
+                        }}>
+                            <option disabled selected value></option>
+                            <option value="1">Cabeça</option>
+                            <option value="2">Tronco</option>
+                            <option value="3">Mãos</option>
+                            <option value="4">Espaço Neutro</option>
+                        </select>
+                    }
                 </div>
 
                 <label htmlFor="config">Configuração de Mão <span className="red-star">*</span></label>
