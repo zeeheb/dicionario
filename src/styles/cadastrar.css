@@ -38,6 +38,7 @@
 .input {
     padding: 15px;
     max-width: 800px;
+    display: flex;
 }
 
 .input input {
@@ -115,6 +116,8 @@
     background-color: #FFFFFF;
     text-align: right;
     align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .box-icon {
@@ -124,7 +127,7 @@
 .box-choice {
     cursor: pointer;
     text-align: left;
-    flex: 10;
+    flex: 1;
 }
 
 .box-icon:hover {
