@@ -28,7 +28,7 @@
     min-width: 420px;
     max-width: 1800px;
     min-height: 750px;
-    max-height: 1150px;
+    max-height: 1750px;
     background-color: #DDDEFF;
     display: flex;
     flex-direction: column;
@@ -37,8 +37,9 @@
 
 .input {
     padding: 15px;
-    max-width: 800px;
+    max-width: 500px;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .input-articulacao {
@@ -77,7 +78,6 @@
     font-family: 'Alata', sans-serif;
     outline: none;
     border: none;
-
 }
 
 .input select {
@@ -146,6 +146,7 @@
     align-items: center;
     margin-left: 5px;
     margin-right: 5px;
+    margin-bottom: 10px;
 }
 
 .box-icon {
