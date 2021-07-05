@@ -17,8 +17,8 @@ function Cadastrar(props) {
     const history = useHistory();
     const [palavra, setPalavra] = useState('');
     const [regiao, setRegiao] = useState('');
-    const [qtdConfig, setQtdConfig] = useState(1);
-    const [qtdPt, setQtdPt] = useState(1);
+    const [qtdConfig, setQtdConfig] = useState('1');
+    const [qtdPt, setQtdPt] = useState('1');
     const [configMao1, setConfigMao1] = useState('');
     const [configMao2, setConfigMao2] = useState('');
     const [configMao3, setConfigMao3] = useState('');
@@ -40,13 +40,39 @@ function Cadastrar(props) {
     const addRegistro = () => {
         console.log('palavra: ' +palavra, 'regiao: ' +regiao, 'config: ' +configMao1, 'artic:'+pontoArtic1);
 
-        if (palavra == '' || regiao == '' || configMao1 == '' || pontoArtic1 == '') {
+        if (palavra === '' || regiao === '' || configMao1 === '' || pontoArtic1 === '') {
             toast.error("Não deixe campos vazios!!");
             return;
         }
+
+        let lsConfig = configMao1;
+        if (configMao2 !== '' && qtdConfig >= '2') {
+            lsConfig += ',' + configMao2;
+        }
+        if (configMao3 !== '' && qtdConfig >= '3') {
+            lsConfig += ',' + configMao3;
+        }
+        if (configMao4 !== '' && qtdConfig === '4') {
+            lsConfig += ',' + configMao4;
+        }
+
+        let lsPtArtic = pontoArtic1;
+        if (pontoArtic2 !== '' && qtdPt >= '2') {
+            lsConfig += ',' + configMao2;
+        }
+        if (pontoArtic3 !== '' && qtdPt >= '3') {
+            lsConfig += ',' + configMao3;
+        }
+        if (pontoArtic4 !== '' && qtdPt === '4') {
+            lsConfig += ',' + configMao4;
+        }
+
+        console.log(lsConfig, lsPtArtic);
         Axios.post('http://127.0.0.1:3001/register/cadastrar', {
             palavra: palavra,
-            regiao: regiao
+            regiao: regiao,
+            config: lsConfig,
+            pontoArtic: lsPtArtic
         }).then((response) => {
             console.log(response);
             toast.success("Submetido com Sucesso!")

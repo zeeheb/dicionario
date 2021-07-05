@@ -72,8 +72,8 @@
 .qry {
     right: 0;
     min-width: 650px;
-    min-height: 150px;
-    max-height: 200px;
+    min-height: 200px;
+    max-height: 250px;
     margin-top: 10px;
     margin-left: 40px;
     margin-right: 40px;
@@ -115,9 +115,10 @@
     font-size: 30px;
     font-weight: normal;
     font-style: normal;
-    line-height: 20px;
+    line-height: 30px;
     color: #FFFFFF;
     padding: 10px;
+    max-width: 200px;
 }
 
 .qry input {
@@ -206,6 +207,7 @@ body {
 
 .line {
     width: 100%;
+    margin-top: 10px;
 }
 
 .colResult {
