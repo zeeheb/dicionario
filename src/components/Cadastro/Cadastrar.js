@@ -68,7 +68,7 @@ function Cadastrar(props) {
         }
 
         console.log(lsConfig, lsPtArtic);
-        Axios.post('http://127.0.0.1:3001/register/cadastrar', {
+        Axios.post('http://127.0.0.1:3001/palavra/cadastrar', {
             palavra: palavra,
             regiao: regiao,
             config: lsConfig,
