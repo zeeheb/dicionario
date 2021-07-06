@@ -11,6 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/Add';
 import ModalConfigMaos from "./ModalConfigMaos";
 import {DialogContent} from "@material-ui/core";
+import {Form} from "react-bootstrap";
 
 
 function Cadastrar(props) {
@@ -31,6 +32,7 @@ function Cadastrar(props) {
     const [show2, setShow2] = useState(false);
     const [show3, setShow3] = useState(false);
     const [show4, setShow4] = useState(false);
+    const [file, setFile] = useState('');
 
 
     const backBtn = () => {
@@ -58,22 +60,35 @@ function Cadastrar(props) {
 
         let lsPtArtic = pontoArtic1;
         if (pontoArtic2 !== '' && qtdPt >= '2') {
-            lsConfig += ',' + configMao2;
+            lsPtArtic += ',' + pontoArtic2;
         }
         if (pontoArtic3 !== '' && qtdPt >= '3') {
-            lsConfig += ',' + configMao3;
+            lsPtArtic += ',' + pontoArtic3;
         }
         if (pontoArtic4 !== '' && qtdPt === '4') {
-            lsConfig += ',' + configMao4;
+            lsPtArtic += ',' + pontoArtic4;
         }
 
-        console.log(lsConfig, lsPtArtic);
+        console.log(lsConfig, lsPtArtic, file);
+        const formData = new FormData();
+        formData.append("file", file);
+        console.log(formData);
+
         Axios.post('http://127.0.0.1:3001/palavra/cadastrar', {
             palavra: palavra,
             regiao: regiao,
             config: lsConfig,
-            pontoArtic: lsPtArtic
+            pontoArtic: lsPtArtic,
         }).then((response) => {
+            Axios.post('http://127.0.0.1:3001/palavra/upload',
+                formData,
+                { headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+            });
+
+            lsPtArtic = '';
+            lsConfig = '';
             console.log(response);
             toast.success("Submetido com Sucesso!")
         })
@@ -286,8 +301,8 @@ function Cadastrar(props) {
 
                 <label htmlFor="regiao">Imagem/Vídeo</label>
                 <div className="input">
-                    <input name="regiao" type="text" onChange={(event) => {
-                        setRegiao(event.target.value);
+                    <input name="regiao" type="file" onChange={(event) => {
+                        setFile(event.target.files[0]);
                     }}/>
                 </div>
 
