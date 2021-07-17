@@ -12,7 +12,7 @@ import AddIcon from '@material-ui/icons/Add';
 import ModalConfigMaos from "./ModalConfigMaos";
 import {DialogContent} from "@material-ui/core";
 import {Form} from "react-bootstrap";
-
+import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 
 function Cadastrar(props) {
     const history = useHistory();
@@ -20,6 +20,7 @@ function Cadastrar(props) {
     const [regiao, setRegiao] = useState('');
     const [qtdConfig, setQtdConfig] = useState('1');
     const [qtdPt, setQtdPt] = useState('1');
+    const [qtdReg, setQtdReg] = useState('1');
     const [configMao1, setConfigMao1] = useState('');
     const [configMao2, setConfigMao2] = useState('');
     const [configMao3, setConfigMao3] = useState('');
@@ -28,6 +29,10 @@ function Cadastrar(props) {
     const [pontoArtic2, setPontoArtic2] = useState('');
     const [pontoArtic3, setPontoArtic3] = useState('');
     const [pontoArtic4, setPontoArtic4] = useState('');
+    const [reg1, setReg1] = useState('');
+    const [reg2, setReg2] = useState('');
+    const [reg3, setReg3] = useState('');
+    const [reg4, setReg4] = useState('');
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
     const [show3, setShow3] = useState(false);
@@ -42,7 +47,7 @@ function Cadastrar(props) {
     const addRegistro = () => {
         console.log('palavra: ' +palavra, 'regiao: ' +regiao, 'config: ' +configMao1, 'artic:'+pontoArtic1);
 
-        if (palavra === '' || regiao === '' || configMao1 === '' || pontoArtic1 === '') {
+        if (palavra === ''  || configMao1 === '' || pontoArtic1 === ''  || reg1 === '') {
             toast.error("Não deixe campos vazios!!");
             return;
         }
@@ -69,14 +74,25 @@ function Cadastrar(props) {
             lsPtArtic += ',' + pontoArtic4;
         }
 
-        console.log(lsConfig, lsPtArtic, file);
+        let lsReg = reg1;
+        if (reg2 !== '' && qtdReg >= '2') {
+            lsReg += ',' + reg2;
+        }
+        if (reg3 !== '' && qtdReg >= '3') {
+            lsReg += ',' + reg3;
+        }
+        if (reg4 !== '' && qtdReg === '4') {
+            lsReg += ',' + reg4;
+        }
+
+        console.log(lsConfig, lsPtArtic, lsReg, file);
         const formData = new FormData();
         formData.append("file", file);
         console.log(formData);
 
         Axios.post('http://127.0.0.1:3001/palavra/cadastrar', {
             palavra: palavra,
-            regiao: regiao,
+            regiao: lsReg,
             config: lsConfig,
             pontoArtic: lsPtArtic,
         }).then((response) => {
@@ -134,6 +150,7 @@ function Cadastrar(props) {
 
         <div className="superContainer">
             <div className="navigation">
+                <KeyboardReturnIcon onClick={backBtn} className="menuBtn"></KeyboardReturnIcon>
                 <span onClick={backBtn} className="titleHome">Dicionário Colaborativo de Libras</span>
             </div>
 
@@ -150,9 +167,18 @@ function Cadastrar(props) {
                     }}/>
                 </div>
                 <label htmlFor="regiao" >Região de Uso <span className="red-star">*</span></label>
+                <h3>Quantidade</h3>
+                <select onChange={(e) => {
+                    setQtdReg(e.target.value);
+                }}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
                 <div className="input">
                     <select name="estados-brasil" onChange={(event) => {
-                        setRegiao(event.target.value);
+                        setReg1(event.target.value);
                     }}>
                         <option disabled selected value></option>
                         <option value="AC">Acre</option>
@@ -184,6 +210,120 @@ function Cadastrar(props) {
                         <option value="TO">Tocantins</option>
                     </select>
                 </div>
+                {
+                    qtdReg >= "2" &&
+                    <div className="input">
+                        <select name="estados-brasil" onChange={(event) => {
+                            setReg2(event.target.value);
+                        }}>
+                            <option disabled selected value></option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                    </div>
+
+                }
+                {
+                    qtdReg >= "3" &&
+                    <div className="input">
+                        <select name="estados-brasil" onChange={(event) => {
+                            setReg3(event.target.value);
+                        }}>
+                            <option disabled selected value></option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                    </div>
+
+                }
+                {
+                    qtdReg === "4" &&
+                    <div className="input">
+                        <select name="estados-brasil" onChange={(event) => {
+                            setReg4(event.target.value);
+                        }}>
+                            <option disabled selected value></option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                    </div>
+
+                }
 
                 <label htmlFor="articulacao">Ponte de Articulação <span className="red-star">*</span></label>
                 <h3>Quantidade</h3>
@@ -300,7 +440,7 @@ function Cadastrar(props) {
                 </div>
 
                 <label htmlFor="regiao">Imagem/Vídeo</label>
-                <div className="input">
+                <div className="input-vid">
                     <input name="regiao" type="file" onChange={(event) => {
                         setFile(event.target.files[0]);
                     }}/>

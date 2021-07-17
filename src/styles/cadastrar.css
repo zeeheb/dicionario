@@ -80,6 +80,15 @@
     border: none;
 }
 
+.input-vid {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 15px;
+    font-family: 'Alata', sans-serif;
+    background-color: #696df6;
+    border-radius: 10px;
+}
+
 .input select {
     border-radius: 12px;
     width: 400px;
@@ -110,6 +119,8 @@
     font-family: 'Alata', sans-serif;
     line-height: 20px;
     color: #FFFFFF;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .cadastrarBtn2:hover {
