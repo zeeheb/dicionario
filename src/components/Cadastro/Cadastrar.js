@@ -54,15 +54,21 @@ function Cadastrar(props) {
         }
 
         if (file.size > 100*1024*1024) {
-            toast.error("Arquivo com tamanho muito grande (100 mb máximo) !!");
+            toast.error("Arquivo com tamanho muito grande!! (100 mb máximo)");
             return;
         }
 
-         if (file.type !==  'video/mp4' || file.type !==  'image/jpeg' ||
-             file.type !==  'image/pjpeg' || file.type !==  'image/png' ||
-             file.type !==  'image/gif' || file.type !==  'image/jpg' ) {
-            toast.error("Arquivo com extensão não permitida!!");
-            return;
+
+        switch( file.type ){
+            case 'video/mp4': break;
+            case 'image/jpeg': break;
+            case 'image/pjpeg': break;
+            case 'image/png': break;
+            case 'image/gif': break;
+            case 'image/jpg': break;
+            default:
+                toast.error("Arquivo com extensão não permitida !!");
+                return;
         }
 
         let lsConfig = configMao1;
@@ -112,7 +118,7 @@ function Cadastrar(props) {
             regiao: lsReg,
             config: lsConfig,
             pontoArtic: lsPtArtic,
-            caminho: caminho
+            caminho: newfile.name
         }).then((response) => {
             Axios.post('http://127.0.0.1:3001/palavra/upload',
                 formData,
