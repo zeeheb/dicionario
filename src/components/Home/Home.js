@@ -13,10 +13,11 @@ import ModalMenu from '../Home/ModalMenu';
 
 function Home(props) {
     const [inputPalavra, setInputPalavra] = useState('')
-    const [nome, setNome] = useState('');
+    const [palavra, setPalavra] = useState('');
     const [regiao, setRegiao] = useState('');
     const [sinal, setSinal] = useState('');
     const [show, setShow] = useState(false);
+    const [sinaisBd, setSinaisBd] = useState([]);
 
 
 
@@ -26,10 +27,68 @@ function Home(props) {
     }
 
     const submitPalavra = () => {
-        Axios.get(`http://localhost:3001/palavra/${inputPalavra}`)
+        Axios.get(`http://localhost:3001/grid/palavra/${inputPalavra.toLowerCase()}`)
             .then(response => {
-                setNome(response.data[0].nome);
-                setRegiao(response.data[0].regiao);
+                console.log("Resposta::::::::", response);
+
+                const sinais = [];
+                let caminho = '';
+                let regioes = [];
+                let pts = [];
+                let configs = [];
+                let idAtual = response.data[0]['id_sinal'];
+                response.data.forEach((resp, idx) => {
+
+                    if (resp['id_sinal'] === idAtual) {
+                        if (!regioes.includes(resp['uf_regiao'])) {
+                            regioes.push(resp['uf_regiao']);
+                        }
+
+                        if (!pts.includes(resp['nome_ponto'])) {
+                            pts.push(resp['nome_ponto']);
+                        }
+
+                        if (!configs.includes(resp['id_config'])) {
+                            configs.push(resp['id_config']);
+                        }
+
+                        if (caminho === '') {
+                            caminho = resp.caminho;
+                        }
+
+                    } else {
+                        console.log(regioes);
+                        sinais.push({
+                            id_sinal: idAtual,
+                            palavra: resp.palavra,
+                            regiao: regioes.join(","),
+                            ponto: pts.join(","),
+                            config: configs.join(","),
+                            caminho: caminho
+                        });
+
+                        idAtual = resp['id_sinal'];
+                        regioes = []; pts = []; configs = [];
+                        regioes.push(resp['uf_regiao']);
+                        pts.push(resp['nome_ponto']);
+                        configs.push(resp['id_config']);
+
+                        if (response.data.length === idx +1) {
+                            sinais.push({
+                                id_sinal: idAtual,
+                                palavra: resp.palavra,
+                                regiao: regioes.join(","),
+                                ponto: pts.join(","),
+                                config: configs.join(","),
+                                caminho: resp.caminho
+                            });
+                        }
+                    }
+                })
+                console.log(sinais);
+                setRegiao(sinais[1].regiao);
+                setPalavra(sinais[1].palavra);
+                setSinaisBd(sinais);
             })
     }
 
@@ -92,7 +151,7 @@ function Home(props) {
                         <span className="colTitle">Palavra</span>
                         <hr className="line"/>
                         <div className="divResult">
-                            <span className="colResult">{nome}</span>
+                            <span className="colResult">{palavra}</span>
                         </div>
                     </div>
 

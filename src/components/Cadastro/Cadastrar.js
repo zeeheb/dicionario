@@ -114,7 +114,7 @@ function Cadastrar(props) {
         console.log(formData);
 
         Axios.post('http://127.0.0.1:3001/palavra/cadastrar', {
-            palavra: palavra,
+            palavra: palavra.toLowerCase(),
             regiao: lsReg,
             config: lsConfig,
             pontoArtic: lsPtArtic,
