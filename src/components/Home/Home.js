@@ -9,6 +9,8 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import {DialogContent} from "@material-ui/core";
 import ModalMenu from '../Home/ModalMenu';
+import {ToastContainer, toast} from "react-toastify";
+import StarRateIcon from '@material-ui/icons/StarRate';
 
 
 function Home(props) {
@@ -18,6 +20,7 @@ function Home(props) {
     const [sinal, setSinal] = useState('');
     const [show, setShow] = useState(false);
     const [sinaisBd, setSinaisBd] = useState([]);
+    const [sinalAtual, setSinalAtual] = useState({});
 
 
 
@@ -29,6 +32,14 @@ function Home(props) {
     const submitPalavra = () => {
         Axios.get(`http://localhost:3001/grid/palavra/${inputPalavra.toLowerCase()}`)
             .then(response => {
+
+                if (!response.data.length) {
+                    setRegiao("");
+                    setPalavra("");
+                    toast.error("Sem registros no Dicionário!!");
+                    return;
+                }
+
                 console.log("Resposta::::::::", response);
 
                 const sinais = [];
@@ -64,7 +75,7 @@ function Home(props) {
                             regiao: regioes.join(","),
                             ponto: pts.join(","),
                             config: configs.join(","),
-                            caminho: caminho
+                            caminho: "file://E:/collegespace/tcc/dicionario/server/uploads/" + caminho
                         });
 
                         idAtual = resp['id_sinal'];
@@ -80,14 +91,15 @@ function Home(props) {
                                 regiao: regioes.join(","),
                                 ponto: pts.join(","),
                                 config: configs.join(","),
-                                caminho: resp.caminho
+                                caminho:  "file://E:/collegespace/tcc/dicionario/server/uploads/" + resp.caminho
                             });
                         }
                     }
                 })
                 console.log(sinais);
-                setRegiao(sinais[1].regiao);
-                setPalavra(sinais[1].palavra);
+
+                toast.success(sinais.length + " sinais encontrados!!")
+                setSinalAtual(sinais[0]);
                 setSinaisBd(sinais);
             })
     }
@@ -100,7 +112,12 @@ function Home(props) {
         setShow(false);
     }
 
-        return (
+    const mudaSinalAtual = (value) => {
+        setSinalAtual(sinaisBd[parseInt(value, 10)]);
+        console.log(value);
+    }
+
+    return (
             <div className="superContainer">
                 <div className="navigation">
 
@@ -151,15 +168,45 @@ function Home(props) {
                         <span className="colTitle">Palavra</span>
                         <hr className="line"/>
                         <div className="divResult">
-                            <span className="colResult">{palavra}</span>
+                            <span className="colResult">{sinalAtual.palavra}</span>
                         </div>
                     </div>
 
                     <div className="segundaColuna">
                         <span className="colTitle">Sinal</span>
                         <hr className="line"/>
+                        {sinaisBd.length ? (
+                            <div style={{marginLeft: '5px'}}>
+                                <div style={{marginTop: '10px', marginBottom: '10px'}}>
+                                    <span style={{fontFamily: 'Alata, sans-serif', fontSize: '18px', marginRight: '10px'}}>Sinal Atual:</span>
+                                    <select
+                                        onChange={(e) => mudaSinalAtual(e.target.value)} style={{width: '150px'}}>
+                                    {sinaisBd.map((s, idx) => (
+                                        <option key={idx} value={idx}>{idx + 1}:  {s.palavra} - {s.regiao}</option>
+                                    ))}
+                                    </select>
+
+                                </div>
+
+                                <span style={{fontFamily: 'Alata, sans-serif', fontSize: '18px', marginRight: '10px'}}>Avaliação Média:
+                                </span>
+                                <span>
+                                    {sinalAtual.avaliacao ? sinalAtual.avaliacao  : 'sem avaliações '}<StarRateIcon style={{color: '#fe9920'}}/>
+                                </span>
+                            </div>
+                        ) : ''}
                         <div className="divResult">
-                            <span className="colResult">{sinal}</span>
+                            {/*<span className="colResult">{sinal}</span>*/}
+
+                            { sinaisBd.length ? (
+                                <div style={{marginTop: '20px'}}>
+                                    <video width="640" height="400" controls="controls">
+                                        <source type="video/mp4"
+                                                src="/../../../../server/public/1fd58e43-d0ff-4539-91eb-03b2a0f464ba.mp4"/>
+                                    </video>
+                                </div>
+                            ) : ''
+                            }
                         </div>
                     </div>
 
@@ -167,10 +214,21 @@ function Home(props) {
                         <span className="colTitle">Região</span>
                         <hr className="line"/>
                         <div className="divResult">
-                            <span className="colResult">{regiao}</span>
+                            <span className="colResult">{sinalAtual.regiao}</span>
                         </div>
                     </div>
                 </div>
+                <ToastContainer
+                    position="bottom-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
             </div>
         );
 
