@@ -10,8 +10,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import {DialogContent} from "@material-ui/core";
 import ModalMenu from '../Home/ModalMenu';
 import {ToastContainer, toast} from "react-toastify";
-import StarRateIcon from '@material-ui/icons/StarRate';
-
+import StarBorderIcon from '@material-ui/icons/StarRate';
+import Rating from '@material-ui/lab/Rating';
 
 function Home(props) {
     const [inputPalavra, setInputPalavra] = useState('')
@@ -21,12 +21,24 @@ function Home(props) {
     const [show, setShow] = useState(false);
     const [sinaisBd, setSinaisBd] = useState([]);
     const [sinalAtual, setSinalAtual] = useState({});
+    const [aval, setAval] = React.useState(0);
+    const [hover, setHover] = React.useState(-1);
 
 
 
     const history = useHistory();
     const handleClick = () => {
         history.push('/cadastrar');
+    }
+
+    const submitAval = (valor) => {
+        Axios.post('http://127.0.0.1:3001/palavra/avaliar', {
+            avaliacao: valor,
+            sinal: sinalAtual.id_sinal
+        }).then((response) => {
+            console.log(response);
+            }
+        )
     }
 
     const submitPalavra = () => {
@@ -43,6 +55,7 @@ function Home(props) {
                 console.log("Resposta::::::::", response);
 
                 const sinais = [];
+                let avaliacao = '';
                 let caminho = '';
                 let regioes = [];
                 let pts = [];
@@ -67,6 +80,10 @@ function Home(props) {
                             caminho = resp.caminho;
                         }
 
+                        if (avaliacao === '') {
+                            avaliacao = resp['media_avaliacao'];
+                        }
+
                     } else {
                         console.log(regioes);
                         sinais.push({
@@ -75,7 +92,8 @@ function Home(props) {
                             regiao: regioes.join(","),
                             ponto: pts.join(","),
                             config: configs.join(","),
-                            caminho: "file://E:/collegespace/tcc/dicionario/server/uploads/" + caminho
+                            caminho: "file://E:/collegespace/tcc/dicionario/server/uploads/" + caminho,
+                            avaliacao: avaliacao
                         });
 
                         idAtual = resp['id_sinal'];
@@ -91,7 +109,8 @@ function Home(props) {
                                 regiao: regioes.join(","),
                                 ponto: pts.join(","),
                                 config: configs.join(","),
-                                caminho:  "file://E:/collegespace/tcc/dicionario/server/uploads/" + resp.caminho
+                                caminho:  "file://E:/collegespace/tcc/dicionario/server/uploads/" + resp.caminho,
+                                avaliacao: resp['media_avaliacao']
                             });
                         }
                     }
@@ -187,12 +206,32 @@ function Home(props) {
                                     </select>
 
                                 </div>
+                                <div>
+                                    <span style={{fontFamily: 'Alata, sans-serif', fontSize: '18px', marginRight: '10px'}}>Avaliação Média:
+                                    </span>
+                                    <span>
+                                        {sinalAtual.avaliacao ? sinalAtual.avaliacao.toFixed(2)  : 'Sem Avaliações'}<StarBorderIcon fontSize={"large"} style={{color: '#ffb400'}}/>
+                                    </span>
+                                </div>
+                                <div>
+                                    <span style={{fontFamily: 'Alata, sans-serif', fontSize: '18px'}}>
+                                    Avalie o Sinal:
+                                     <Rating
+                                         style={{top: '5px', left: '5px'}}
+                                         name="hover-feedback"
+                                         value={aval}
+                                         precision={0.5}
+                                         onChange={(event, newValue) => {
+                                             setAval(newValue);
+                                             submitAval(newValue);
+                                         }}
+                                         onChangeActive={(event, newHover) => {
+                                             setHover(newHover);
+                                         }}
+                                     />
+                                    </span>
+                                </div>
 
-                                <span style={{fontFamily: 'Alata, sans-serif', fontSize: '18px', marginRight: '10px'}}>Avaliação Média:
-                                </span>
-                                <span>
-                                    {sinalAtual.avaliacao ? sinalAtual.avaliacao  : 'sem avaliações '}<StarRateIcon style={{color: '#fe9920'}}/>
-                                </span>
                             </div>
                         ) : ''}
                         <div className="divResult">
@@ -200,7 +239,7 @@ function Home(props) {
 
                             { sinaisBd.length ? (
                                 <div style={{marginTop: '20px'}}>
-                                    <video width="640" height="400" controls="controls">
+                                    <video width="750" height="400" controls="controls">
                                         <source type="video/mp4"
                                                 src="/../../../../server/public/1fd58e43-d0ff-4539-91eb-03b2a0f464ba.mp4"/>
                                     </video>

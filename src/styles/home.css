@@ -184,7 +184,8 @@ body {
     background-color: #FFFFFF;
     min-width: 420px;
     max-width: 920px;
-    height: 400px;
+    min-height: 500px;
+    max-height: 550px;
     margin-top: 26px;
     margin-left: 40px;
     border-radius: 12px;
