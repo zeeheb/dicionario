@@ -36,12 +36,21 @@ function Home(props) {
             avaliacao: valor,
             sinal: sinalAtual.id_sinal
         }).then((response) => {
+            if(response.data.code === 'ER_DUP_ENTRY') {
+                toast.error("Você já avaliou esse sinal!");
+            } else if (response.data.code === 'Null') {
+                toast.error("Tente novamente!");
+            } else {
+                toast.success("Sinal avaliado com sucesso!");
+            }
             console.log(response);
             }
         )
     }
 
     const submitPalavra = () => {
+        setSinalAtual({});
+        setSinaisBd([]);
         Axios.get(`http://localhost:3001/grid/palavra/${inputPalavra.toLowerCase()}`)
             .then(response => {
 
@@ -84,6 +93,18 @@ function Home(props) {
                             avaliacao = resp['media_avaliacao'];
                         }
 
+                        if (response.data.length === idx +1) {
+                            sinais.push({
+                                id_sinal: idAtual,
+                                palavra: resp.palavra,
+                                regiao: regioes.join(","),
+                                ponto: pts.join(","),
+                                config: configs.join(","),
+                                caminho:  "file://E:/collegespace/tcc/dicionario/server/uploads/" + resp.caminho,
+                                avaliacao: resp['media_avaliacao']
+                            });
+                        }
+
                     } else {
                         console.log(regioes);
                         sinais.push({
@@ -97,10 +118,12 @@ function Home(props) {
                         });
 
                         idAtual = resp['id_sinal'];
-                        regioes = []; pts = []; configs = [];
+                        regioes = []; pts = []; configs = []; avaliacao = ''; caminho = '';
                         regioes.push(resp['uf_regiao']);
                         pts.push(resp['nome_ponto']);
                         configs.push(resp['id_config']);
+                        avaliacao = resp['media_avaliacao'];
+                        caminho = resp.caminho;
 
                         if (response.data.length === idx +1) {
                             sinais.push({
