@@ -101,7 +101,7 @@ function Home(props) {
                                 regiao: regioes.join(","),
                                 ponto: pts.join(","),
                                 config: configs.join(","),
-                                caminho:  "file://E:/collegespace/tcc/dicionario/server/uploads/" + resp.caminho,
+                                caminho: resp.caminho,
                                 avaliacao: resp['media_avaliacao']
                             });
                         }
@@ -114,7 +114,7 @@ function Home(props) {
                             regiao: regioes.join(","),
                             ponto: pts.join(","),
                             config: configs.join(","),
-                            caminho: "file://E:/collegespace/tcc/dicionario/server/uploads/" + caminho,
+                            caminho: caminho,
                             avaliacao: avaliacao
                         });
 
@@ -133,7 +133,7 @@ function Home(props) {
                                 regiao: regioes.join(","),
                                 ponto: pts.join(","),
                                 config: configs.join(","),
-                                caminho:  "file://E:/collegespace/tcc/dicionario/server/uploads/" + resp.caminho,
+                                caminho:  resp.caminho,
                                 avaliacao: resp['media_avaliacao']
                             });
                         }
@@ -273,10 +273,13 @@ function Home(props) {
 
                             { sinaisBd.length ? (
                                 <div style={{marginTop: '20px'}}>
-                                    <video width="750" height="400" controls="controls">
-                                        <source type="video/mp4"
-                                                src="/../../../../server/public/1fd58e43-d0ff-4539-91eb-03b2a0f464ba.mp4"/>
-                                    </video>
+                                    <React.Fragment key={sinalAtual.id_sinal}>
+                                        <video
+                                            width="750" height="350"
+                                            src={"./sinais/" + sinalAtual.caminho}
+                                            controls="controls">
+                                        </video>
+                                    </React.Fragment>
                                 </div>
                             ) : ''
                             }
