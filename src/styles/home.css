@@ -170,12 +170,14 @@ body {
     flex-wrap: wrap;
     min-width: 300px;
     max-width: 520px;
-    height: 150px;
+    min-height: 500px;
+    max-height: 550px;
     width: 100%;
     margin-left: 40px;
     margin-top: 26px;
     border-radius: 12px;
 }
+
 
 .segundaColuna {
     flex: 3;
@@ -197,7 +199,8 @@ body {
     flex-direction: column;
     min-width: 300px;
     max-width: 520px;
-    height: 150px;
+    min-height: 500px;
+    max-height: 550px;
     margin-left: 40px;
     margin-top: 26px;
     margin-right: 40px;

@@ -12,6 +12,7 @@ import ModalMenu from '../Home/ModalMenu';
 import {ToastContainer, toast} from "react-toastify";
 import StarBorderIcon from '@material-ui/icons/StarRate';
 import Rating from '@material-ui/lab/Rating';
+import {configMaos} from "../Cadastro/config-maos";
 
 function Home(props) {
     const [inputPalavra, setInputPalavra] = useState('')
@@ -207,11 +208,21 @@ function Home(props) {
 
                 <div className="infocontainer">
                     <div className="primeiraColuna">
-                        <span className="colTitle">Palavra</span>
-                        <hr className="line"/>
-                        <div className="divResult">
-                            <span className="colResult">{sinalAtual.palavra}</span>
+                        <div>
+                            <span className="colTitle">Palavra</span>
+                            <hr className="line"/>
+                            <div className="divResult">
+                                <span className="colResult">{sinalAtual.palavra}</span>
+                            </div>
                         </div>
+                        <div style={{marginTop: '200px'}}>
+                            <span className="colTitle" style={{marginTop: '200px'}}>Ponto de Articulação</span>
+                            <hr className="line"/>
+                            <div className="divResult">
+                                <span className="colResult">{sinalAtual.ponto}</span>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div className="segundaColuna">
@@ -273,10 +284,31 @@ function Home(props) {
                     </div>
 
                     <div className="terceiraColuna">
-                        <span className="colTitle">Região</span>
-                        <hr className="line"/>
-                        <div className="divResult">
-                            <span className="colResult">{sinalAtual.regiao}</span>
+                        <div>
+                            <span className="colTitle">Região</span>
+                            <hr className="line"/>
+                            <div className="divResult">
+                                <span className="colResult">{sinalAtual.regiao}</span>
+                            </div>
+                        </div>
+
+                        <div style={{marginTop: '170px'}}>
+                            <span className="colTitle" style={{marginTop: '200px'}}>Configuração de Mão</span>
+                            <hr className="line"/>
+                            <div style={{display: 'flex', marginTop: '30px', marginLeft: '80px'}}>
+                                {
+                                    sinalAtual.config ? sinalAtual.config.split(',').map(config => (
+                                        // <div style={{marginLeft: '20px'}}>
+                                            <img
+                                                style={{width: '100px'}}
+                                                // className=" border-2 border-solid border-white hover:border-indigo-500 cursor-pointer"
+                                                src={'./config-maos/' + config + '.jpg'} alt={config.value}/>
+                                        // </div>
+
+
+                                    )) : ''
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
