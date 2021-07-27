@@ -2,7 +2,7 @@ import React, {Component, useEffect, useState} from "react";
 import '../../App.css';
 import 'react-toastify/dist/ReactToastify.css';
 import Axios from "axios";
-import {toast} from "react-toastify";
+import {ToastContainer, toast} from "react-toastify";
 
 
 function Painel(props) {
@@ -17,9 +17,8 @@ function Painel(props) {
             .then(response => {
 
                 if (!response.data.length) {
-                    // setRegiao("");
-                    // setPalavra("");
-                    toast.error("Sem novos registros no Dicionário!!");
+
+                    toast.error("Sem registros no Dicionário!!");
                     return;
                 }
 
@@ -62,7 +61,7 @@ function Painel(props) {
                                 regiao: regioes.join(","),
                                 ponto: pts.join(","),
                                 config: configs.join(","),
-                                caminho:  "file://E:/collegespace/tcc/dicionario/server/uploads/" + resp.caminho,
+                                caminho: resp.caminho,
                                 avaliacao: resp['media_avaliacao']
                             });
                         }
@@ -75,7 +74,7 @@ function Painel(props) {
                             regiao: regioes.join(","),
                             ponto: pts.join(","),
                             config: configs.join(","),
-                            caminho: "file://E:/collegespace/tcc/dicionario/server/uploads/" + caminho,
+                            caminho: caminho,
                             avaliacao: avaliacao
                         });
 
@@ -94,7 +93,7 @@ function Painel(props) {
                                 regiao: regioes.join(","),
                                 ponto: pts.join(","),
                                 config: configs.join(","),
-                                caminho:  "file://E:/collegespace/tcc/dicionario/server/uploads/" + resp.caminho,
+                                caminho:  resp.caminho,
                                 avaliacao: resp['media_avaliacao']
                             });
                         }
@@ -109,15 +108,16 @@ function Painel(props) {
     }
 
     const aceitaSinal = () => {
-        Axios.post().then(() => {
-            toast.success("Sinal aceito com sucesso!");
-        })
+        // Axios.post().then(() => {
+        // })
+        toast.success("Sinal aceito com sucesso!");
+
     }
 
     const recusaSinal = () => {
-        Axios.post().then(() => {
-            toast.success("Sinal recusado com sucesso!");
-        })
+        // Axios.post().then(() => {
+        // })
+        toast.success("Sinal recusado com sucesso!");
     }
 
     return (
@@ -148,15 +148,29 @@ function Painel(props) {
                         sinaisBd.map( (s) =>
                         (<tr className="border-b hover:bg-orange-100 bg-gray-100">
                             <td className="p-3 px-5">{s.palavra}</td>
-                            <td className="p-3 px-5">{s.config}</td>
+                            <td className="p-3 px-5">
+                                {s.config ? s.config.split(',').map(config => (
+                                    // <div style={{marginLeft: '20px'}}>
+                                    <img
+                                        style={{width: '100px'}}
+                                        // className=" border-2 border-solid border-white hover:border-indigo-500 cursor-pointer"
+                                        src={'./config-maos/' + config + '.jpg'} alt={config.value}/>
+                                    // </div>
+
+
+                                )) : ''}
+                            </td>
                             <td className="p-3 px-5">{s.ponto}</td>
                             <td className="p-3 px-5">{s.regiao}</td>
                             <td className="p-3 px-5">
                                 <div style={{marginTop: '20px'}}>
-                                    <video width="350" height="250" controls="controls">
-                                        <source type="video/mp4"
-                                                src="/../../../../server/public/1fd58e43-d0ff-4539-91eb-03b2a0f464ba.mp4"/>
-                                    </video>
+                                    <React.Fragment key={s.id_sinal}>
+                                        <video
+                                            width="400" height="350"
+                                            src={"./sinais/" + s.caminho}
+                                            controls="controls">
+                                        </video>
+                                    </React.Fragment>
                                 </div>
                             </td>
                             <td className="p-3 px-5 flex justify-end">
@@ -177,6 +191,17 @@ function Painel(props) {
                     </tbody>
                 </table>
             </div>
+            <ToastContainer
+                position="bottom-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
 
 

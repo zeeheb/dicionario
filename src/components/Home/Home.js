@@ -208,13 +208,13 @@ function Home(props) {
 
                 <div className="infocontainer">
                     <div className="primeiraColuna">
-                        <div>
+
                             <span className="colTitle">Palavra</span>
                             <hr className="line"/>
                             <div className="divResult">
                                 <span className="colResult">{sinalAtual.palavra}</span>
                             </div>
-                        </div>
+
                         <div style={{marginTop: '200px'}}>
                             <span className="colTitle" style={{marginTop: '200px'}}>Ponto de Articulação</span>
                             <hr className="line"/>
@@ -287,13 +287,11 @@ function Home(props) {
                     </div>
 
                     <div className="terceiraColuna">
-                        <div>
                             <span className="colTitle">Região</span>
                             <hr className="line"/>
                             <div className="divResult">
                                 <span className="colResult">{sinalAtual.regiao}</span>
                             </div>
-                        </div>
 
                         <div style={{marginTop: '170px'}}>
                             <span className="colTitle" style={{marginTop: '200px'}}>Configuração de Mão</span>
